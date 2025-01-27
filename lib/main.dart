@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
 
-        title: Text('My App'),
+        title: Text('To Do App'),
       ),
       body: Center(
         child: Container(
