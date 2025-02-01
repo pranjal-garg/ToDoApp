@@ -1,65 +1,71 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+void main()
+{
+  runApp(FlutterApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+class FlutterApp extends StatelessWidget
+{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: "ToDo App",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primaryColor: Colors.red
 
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: DashBoardScreen(),
     );
   }
+
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-
+class DashBoardScreen extends StatelessWidget
+{
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
+        title: Text('ToDo App',style: TextStyle(color: Colors.white, fontSize: 18),),
         backgroundColor: Colors.blue,
-
-        title: Text('To Do App'),
+        actions: [
+          IconButton(
+              onPressed: (){},
+              icon: Padding(padding: EdgeInsets.only(right: 10),child:Icon(Icons.add, color: Colors.white,size: 19,)))
+        ],
       ),
-      body: Center(
-        child: Container(
-          width: 100,
-          height: 100,
-          color: Colors.yellow,
-          child: TextButton(
-              child: Text('Click Me Here', textAlign: TextAlign.center,),
-            onPressed: (){
+      body: Column(
+        children: [
+          Expanded(
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.only(bottomRight: Radius.circular(150))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container( margin: EdgeInsets.only(top:25,left: 20),
+                        child:
+                        Text("Today",style: TextStyle(color: Colors.white,fontSize: 35),)),
+                    Container(
+                      margin: EdgeInsets.only(top: 0,left: 20),
+                      child: 
+                      Text("02, February 2025",style: TextStyle(color: Colors.white,fontSize: 16),),
+                    )
+                  ],
+                ),
+              )
+          ),
+          Expanded(flex: 3,
+              child: Container(
 
+          ))
+        ],
 
-            },
-
-          )
-        ),
-
-      ),
-
+      )
     );
   }
+
 }
+
