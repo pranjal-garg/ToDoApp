@@ -140,21 +140,35 @@ class DashBoardState extends State<DashBoardScreen>{
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("Add New", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+          title: Text("Add New Task", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
           content: Container(
-            child: TextField(decoration: InputDecoration(
-                hintText: "Enter Task Name",
-                border: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: Colors.blue)),
-            ),
-                autofocus: true,),
+            margin: EdgeInsets.only(top: 15),
+            child:Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
 
-          ),
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11),borderSide: BorderSide(color: Colors.blue)),
+                    hintText: "Enter Task Title",
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: Colors.blue)),
+                  ), autofocus: true,),
+                Container(height: 10,),
+                TextField(
+
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11),borderSide: BorderSide(color: Colors.blue)),
+                    hintText: "Enter Due Date",
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: Colors.blue)),
+                  ), autofocus: true,),
+              ],
+            )),
           actions: [
             TextButton(onPressed:(){}, child: Text("SUBMIT"))
           ],
 
 
-    ));
+        ));
   }
   }
 
