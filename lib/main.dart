@@ -1,4 +1,4 @@
-import 'package:android/data/local/db_helper.dart';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -36,7 +36,7 @@ class DashBoardScreen extends StatefulWidget
 
 class DashBoardState extends State<DashBoardScreen>{
 
-  List<String> arrNames = ["Abhiram","Pranjal","Yatindra"];
+  List<String> arrNames = ["Maths Assignment","Coding Practice","Health Exercise"];
   List<bool?> checked = [false, false, false];
   List<String> status = ["Incomplete","Incomplete","Incomplete"];
   List<Color> col = [Colors.black,Colors.black,Colors.black];
@@ -88,7 +88,7 @@ class DashBoardState extends State<DashBoardScreen>{
                                                       secondary: Text(status[index]) ,
                                                       controlAffinity:ListTileControlAffinity.leading,
                                                       title: Text(arrNames[index], style: TextStyle(color: col[index],fontWeight: FontWeight.w700,decoration: textDecoration[index],decorationThickness: 3.0),),
-                                                      subtitle:Text("Alphabet"),
+                                                      subtitle:Text("Due by: 02/03/2024"),
                                                       value: checked[index],
                                                       onChanged: (bool? v) => update(v, index)
                                                       ),
