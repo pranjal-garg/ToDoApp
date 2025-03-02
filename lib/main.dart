@@ -37,6 +37,7 @@ class DashBoardScreen extends StatefulWidget
 class DashBoardState extends State<DashBoardScreen>{
 
   List<String> arrNames = ["Maths Assignment","Coding Practice","Health Exercise"];
+  List<String> dueDate = ["02/03/2025","02/03/2025","02/03/2025"];
   List<bool?> checked = [false, false, false];
   List<String> status = ["Incomplete","Incomplete","Incomplete"];
   List<Color> col = [Colors.black,Colors.black,Colors.black];
@@ -88,7 +89,7 @@ class DashBoardState extends State<DashBoardScreen>{
                                                       secondary: Text(status[index]) ,
                                                       controlAffinity:ListTileControlAffinity.leading,
                                                       title: Text(arrNames[index], style: TextStyle(color: col[index],fontWeight: FontWeight.w700,decoration: textDecoration[index],decorationThickness: 3.0),),
-                                                      subtitle:Text("Due by: 02/03/2024"),
+                                                      subtitle:Text("Due by: "+dueDate[index]),
                                                       value: checked[index],
                                                       onChanged: (bool? v) => update(v, index)
                                                       ),
@@ -107,6 +108,8 @@ class DashBoardState extends State<DashBoardScreen>{
   {
     if(change == true)
     {
+      dueDate.add(dueDate[i]);
+      dueDate.removeAt(i);
       arrNames.add(arrNames[i]);
       arrNames.removeAt(i);
       checked.add(true);
@@ -137,6 +140,8 @@ class DashBoardState extends State<DashBoardScreen>{
   }
   void newTask()
   {
+    var taskName = TextEditingController();
+    var taskDate = TextEditingController();
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -147,7 +152,7 @@ class DashBoardState extends State<DashBoardScreen>{
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-
+                  controller: taskName,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11),borderSide: BorderSide(color: Colors.blue)),
                     hintText: "Enter Task Title",
@@ -155,7 +160,7 @@ class DashBoardState extends State<DashBoardScreen>{
                   ), autofocus: true,),
                 Container(height: 10,),
                 TextField(
-
+                  controller: taskDate,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11),borderSide: BorderSide(color: Colors.blue)),
                     hintText: "Enter Due Date",
@@ -164,7 +169,15 @@ class DashBoardState extends State<DashBoardScreen>{
               ],
             )),
           actions: [
-            TextButton(onPressed:(){}, child: Text("SUBMIT"))
+            TextButton(onPressed:(){
+              arrNames.insert(0,taskName.text.toString());
+              checked.insert(0,false);
+              status.insert(0,"Incomplete");
+              dueDate.insert(0,taskDate.text.toString());
+              col.insert(0,Colors.black);
+              textDecoration.insert(0,TextDecoration.none);
+              setState(() {});
+            }, child: Text("SUBMIT"))
           ],
 
 
