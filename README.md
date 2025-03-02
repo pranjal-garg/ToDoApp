@@ -17,7 +17,8 @@ A simple and minimalistic **ToDo application** built using **Flutter**. This app
 
 | Home Screen | Add Task Dialog |
 |-------------|-----------------|
-| | *(Insert screenshot here)* |
+|![Screenshot_20250302_182248](https://github.com/user-attachments/assets/786d3b48-3f23-4b38-b73d-57f8a60bdfa6)
+ | *(Insert screenshot here)* |
 
 
 ## 🛠️ Tech Stack
