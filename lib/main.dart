@@ -177,6 +177,7 @@ class DashBoardState extends State<DashBoardScreen>{
               col.insert(0,Colors.black);
               textDecoration.insert(0,TextDecoration.none);
               setState(() {});
+              Navigator.pop(context);
             }, child: Text("SUBMIT"))
           ],
 
