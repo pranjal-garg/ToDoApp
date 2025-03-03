@@ -1,4 +1,5 @@
 
+import 'package:android/Task.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -34,15 +35,10 @@ class DashBoardScreen extends StatefulWidget
 
 }
 
-class DashBoardState extends State<DashBoardScreen>{
+class DashBoardState extends State<DashBoardScreen>
+{
+  List<Task> task = [];
 
-  List<String> arrNames = ["Maths Assignment","Coding Practice","Health Exercise"];
-  List<String> dueDate = ["02/03/2025","02/03/2025","02/03/2025"];
-  List<bool?> checked = [false, false, false];
-  List<String> status = ["Incomplete","Incomplete","Incomplete"];
-  List<Color> col = [Colors.black,Colors.black,Colors.black];
-  List<TextDecoration> textDecoration = [TextDecoration.none,TextDecoration.none,TextDecoration.none];
-  bool? isChecked = false;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -58,7 +54,6 @@ class DashBoardState extends State<DashBoardScreen>{
           ],
         ),
         body: Column(
-
           children: [
             Expanded(
                 child: Container(
@@ -85,16 +80,17 @@ class DashBoardState extends State<DashBoardScreen>{
                 child: Container(margin: EdgeInsets.only(top:15, left: 10, right: 10),
                     child: ListView.builder(itemBuilder:(context, index) {
                   return Card(elevation: 2,
-                              child: CheckboxListTile(activeColor: Colors.blue,
+                              child: CheckboxListTile(
+                                  activeColor: Colors.blue,
                                   secondary: InkWell(onTap: (){deleteTask(index);}, child: Icon(Icons.delete_outline, color: Colors.blue,),),
                                   controlAffinity:ListTileControlAffinity.leading,
-                                  title: Text(arrNames[index], style: TextStyle(color: col[index],fontWeight: FontWeight.w700,decoration: textDecoration[index],decorationThickness: 3.0),),
-                                  subtitle:Text("Due by: "+dueDate[index]),
-                                  value: checked[index],
+                                  title: Text(task[index].name, style: TextStyle(color: task[index].color,fontWeight: FontWeight.w700,decoration: task[index].textDecoration,decorationThickness: 3.0),),
+                                  subtitle:Text("Due by: ${task[index].dueDate}"),
+                                  value: task[index].checked,
                                   onChanged: (bool? v) => update(v, index)
                               ),
                   );
-                    },itemCount: arrNames.length,)
+                    },itemCount: task.length,)
                 )
 
             )
@@ -106,43 +102,26 @@ class DashBoardState extends State<DashBoardScreen>{
 
   void deleteTask(int i)
   {
-    arrNames.removeAt(i);
-    dueDate.removeAt(i);
-    checked.removeAt(i);
-    col.removeAt(i);
-    textDecoration.removeAt(i);
+    task.removeAt(i);
     setState(() {});
   }
   void update(bool? change, int i)
   {
     if(change == true)
     {
-      dueDate.add(dueDate[i]);
-      dueDate.removeAt(i);
-      arrNames.add(arrNames[i]);
-      arrNames.removeAt(i);
-      checked.add(true);
-      checked.removeAt(i);
-      col.add(Colors.blue);
-      col.removeAt(i);
-      textDecoration.add(TextDecoration.lineThrough);
-      textDecoration.removeAt(i);
+      task[i].color = Colors.blue;
+      task[i].checked = true;
+      task[i].textDecoration = TextDecoration.lineThrough;
+      task.add(task[i]);
+      task.removeAt(i);
     }
     else
     {
-          arrNames.insert(0, arrNames[i]);
-          checked.insert(0, false);
-          status.insert(0, "Incomplete");
-          col.insert(0, Colors.black);
-          textDecoration.insert(0, TextDecoration.none);
-          dueDate.insert(0, dueDate[i]);
-
-          arrNames.removeAt(i + 1);
-          checked.removeAt(i + 1);
-          status.removeAt(i + 1);
-          col.removeAt(i + 1);
-          textDecoration.removeAt(i + 1);
-          dueDate.removeAt(i+1);
+      task[i].checked = false;
+      task[i].color = Colors.black;
+      task[i].textDecoration = TextDecoration.none;
+      task.insert(0, task[i]);
+      task.removeAt(i+1);
       }
     setState(() {});
   }
@@ -186,12 +165,9 @@ class DashBoardState extends State<DashBoardScreen>{
               Navigator.pop(context);
             }, child: Text("CANCEL")),
             TextButton(onPressed:(){
-              arrNames.insert(0,taskName.text.toString());
-              checked.insert(0,false);
-              status.insert(0,"Incomplete");
-              dueDate.insert(0,taskDate.text.toString());
-              col.insert(0,Colors.black);
-              textDecoration.insert(0,TextDecoration.none);
+              Task tempTask = Task();
+              tempTask.newTask(taskName.text.toString(), taskDate.text.toString(), false, Colors.black, TextDecoration.none);
+              task.insert(0, tempTask);
               setState(() {});
               Navigator.pop(context);
             }, child: Text("SUBMIT")),
