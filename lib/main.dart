@@ -86,15 +86,15 @@ class DashBoardState extends State<DashBoardScreen>{
                     child: ListView.builder(itemBuilder:(context, index) {
                   return Card(elevation: 2,
                               child: CheckboxListTile(activeColor: Colors.blue,
-                                                      secondary: Text(status[index]) ,
-                                                      controlAffinity:ListTileControlAffinity.leading,
-                                                      title: Text(arrNames[index], style: TextStyle(color: col[index],fontWeight: FontWeight.w700,decoration: textDecoration[index],decorationThickness: 3.0),),
-                                                      subtitle:Text("Due by: "+dueDate[index]),
-                                                      value: checked[index],
-                                                      onChanged: (bool? v) => update(v, index)
-                                                      ),
-                              );
-                },itemCount: arrNames.length,)
+                                  secondary: InkWell(onTap: (){deleteTask(index);}, child: Icon(Icons.delete_outline, color: Colors.blue,),),
+                                  controlAffinity:ListTileControlAffinity.leading,
+                                  title: Text(arrNames[index], style: TextStyle(color: col[index],fontWeight: FontWeight.w700,decoration: textDecoration[index],decorationThickness: 3.0),),
+                                  subtitle:Text("Due by: "+dueDate[index]),
+                                  value: checked[index],
+                                  onChanged: (bool? v) => update(v, index)
+                              ),
+                  );
+                    },itemCount: arrNames.length,)
                 )
 
             )
@@ -104,6 +104,15 @@ class DashBoardState extends State<DashBoardScreen>{
     );
   }
 
+  void deleteTask(int i)
+  {
+    arrNames.removeAt(i);
+    dueDate.removeAt(i);
+    checked.removeAt(i);
+    col.removeAt(i);
+    textDecoration.removeAt(i);
+    setState(() {});
+  }
   void update(bool? change, int i)
   {
     if(change == true)
@@ -114,28 +123,27 @@ class DashBoardState extends State<DashBoardScreen>{
       arrNames.removeAt(i);
       checked.add(true);
       checked.removeAt(i);
-      status.add("Completed");
-      status.removeAt(i);
       col.add(Colors.blue);
       col.removeAt(i);
       textDecoration.add(TextDecoration.lineThrough);
       textDecoration.removeAt(i);
     }
     else
-      {
+    {
           arrNames.insert(0, arrNames[i]);
           checked.insert(0, false);
           status.insert(0, "Incomplete");
           col.insert(0, Colors.black);
           textDecoration.insert(0, TextDecoration.none);
+          dueDate.insert(0, dueDate[i]);
 
           arrNames.removeAt(i + 1);
           checked.removeAt(i + 1);
           status.removeAt(i + 1);
           col.removeAt(i + 1);
           textDecoration.removeAt(i + 1);
+          dueDate.removeAt(i+1);
       }
-
     setState(() {});
   }
   void newTask()
@@ -160,15 +168,23 @@ class DashBoardState extends State<DashBoardScreen>{
                   ), autofocus: true,),
                 Container(height: 10,),
                 TextField(
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? datePicked = await showDatePicker(context: context, initialDate: DateTime.now(), lastDate: DateTime.now().add(Duration(days: 365*10)), firstDate: DateTime.now());
+                    taskDate.text = "${datePicked?.day}/${datePicked?.month}/${datePicked?.year}";
+                  },
                   controller: taskDate,
-                  decoration: InputDecoration(
+                  decoration: InputDecoration(suffixIcon: Icon(Icons.calendar_today),
                     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(11),borderSide: BorderSide(color: Colors.blue)),
                     hintText: "Enter Due Date",
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(11), borderSide: BorderSide(color: Colors.blue)),
-                  ), autofocus: true,),
+                  ), ),
               ],
             )),
           actions: [
+            TextButton(onPressed:(){
+              Navigator.pop(context);
+            }, child: Text("CANCEL")),
             TextButton(onPressed:(){
               arrNames.insert(0,taskName.text.toString());
               checked.insert(0,false);
@@ -178,7 +194,7 @@ class DashBoardState extends State<DashBoardScreen>{
               textDecoration.insert(0,TextDecoration.none);
               setState(() {});
               Navigator.pop(context);
-            }, child: Text("SUBMIT"))
+            }, child: Text("SUBMIT")),
           ],
 
 
