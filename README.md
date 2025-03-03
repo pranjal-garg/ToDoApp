@@ -1,16 +1,26 @@
 # 📋 Flutter ToDo App
 
-A simple and minimalistic **ToDo application** built using **Flutter**. This app demonstrates basic task management where users can add tasks, mark them as **Completed** or **Incomplete**, and delete tasks. It provides a clean and intuitive interface for managing daily tasks.
+A simple and minimalistic **ToDo application** built using **Flutter**. This app allows users to manage their daily tasks by adding, completing, and deleting tasks with a smooth and intuitive interface.
 
 ## 🚀 Features
 
-- ✅ Displays a predefined list of tasks.
-- ➕ Add new tasks with a title and due date.
-- ❌ Delete tasks from the list.
-- ✔️ Mark tasks as "Completed" or "Incomplete" with visual feedback.
-- 📅 Shows the current date dynamically on the home screen.
-- 🎨 Visual changes for completed tasks (blue color with strikethrough).
+- ✅ Displays a list of tasks with due dates.
+- 📝 Allows adding new tasks with a title and due date.
+- ✔️ Mark tasks as "Completed" or "Incomplete" with visual changes.
+- 📅 Shows the current date dynamically.
+- 🗑️ Delete tasks with a single tap.
+- 🎨 Changes text color and adds a strikethrough when tasks are completed.
 - 📦 Modular code structure following Flutter best practices.
+
+## 📂 Project Structure
+
+```plaintext
+/lib
+├── main.dart       # Main UI and app logic
+├── Task.dart       # Task model class
+```
+
+
 
 ## 📱 Screenshots
 
@@ -27,29 +37,24 @@ A simple and minimalistic **ToDo application** built using **Flutter**. This app
 
 ## 💡 How it Works
 
-- The app starts with a predefined list of tasks.
+- The app initializes with an empty list of tasks.
 - You can check/uncheck tasks. The UI updates instantly:
-  - ✔️ Completed tasks are moved to the bottom with blue color and strikethrough.
-  - ❌ Incomplete tasks are moved to the top with black color and normal text.
-  - 🗑️ Delete tasks anytime using the delete icon.
-- Add a new task via the **"+" button** in the AppBar.
-- Each task shows its **due date**.
+  - ✔️ Completed tasks move to the bottom with a blue color and strikethrough.
+  - ❌ Incomplete tasks stay on top with black color and normal text.
+- Add a new task using the **"+" button** in the AppBar.
+- Delete any task with the trash icon.
 
 ## ⚠️ Known Limitations
 
-- Data is **not persistent**. On restarting the app, tasks reset.
-- No backend or local database integration (like SQLite or Hive).
-- Task lists are handled through multiple parallel arrays which can become difficult to maintain.
-- No validation for empty task names or due dates.
+- Data is **not persistent**. Tasks are lost on app restart.
+- No backend or local storage is implemented.
 
 ## 🏗️ Future Improvements
 
-- Refactor to use a `Task` model for better data handling.
-- Implement local storage with **SQLite**, **Hive**, or **SharedPreferences**.
-- Add task categories, priorities, and reminders.
-- Improve UI responsiveness and add animations.
-- Add support for recurring tasks and notifications.
-- Implement search and filter functionality.
+- Implement local database support (like **SQLite** or **Hive**).
+- Add task categories and deadlines.
+- Improve UI responsiveness and animations.
+- Add notifications for upcoming tasks.
 
 ## 🏃 Getting Started
 
@@ -61,3 +66,9 @@ A simple and minimalistic **ToDo application** built using **Flutter**. This app
 ```bash
 flutter pub get
 flutter run
+```
+
+## 📬 Contact
+- 📧 Email: pranjalgarg2005@gmail.com
+- 💼 LinkedIn: https://www.linkedin.com/in/pranjal-garg-9158a0229/
+- 🐙 GitHub: https://github.com/pranjal-garg
