@@ -1,6 +1,8 @@
 
 import 'package:android/Task.dart';
+import 'package:android/data/local/DBHelper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 void main()
@@ -38,6 +40,21 @@ class DashBoardScreen extends StatefulWidget
 class DashBoardState extends State<DashBoardScreen>
 {
   List<Task> task = [];
+  DBHelper? DBRef;
+
+  @override
+  void initState()
+  {
+    super.initState();
+    DBRef = DBHelper.getInstance;
+    getTasks();
+  }
+
+  void getTasks() async
+  {
+    task = await DBRef!.getAllTasks();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,17 +182,26 @@ class DashBoardState extends State<DashBoardScreen>
               Navigator.pop(context);
             }, child: Text("CANCEL")),
             TextButton(onPressed:(){
-              Task tempTask = Task();
-              tempTask.newTask(taskName.text.toString(), taskDate.text.toString(), false, Colors.black, TextDecoration.none);
-              task.insert(0, tempTask);
-              setState(() {});
-              Navigator.pop(context);
-            }, child: Text("SUBMIT")),
+              addTaskToDb(taskName.text.toString(), taskDate.text.toString(), false);
+              }, child: Text("SUBMIT")),
           ],
 
 
         ));
   }
+
+  void addTaskToDb(String n, String dd, bool c) async
+  {
+    bool? done = await DBRef?.addTask(n, dd, c);
+    if(done!)
+      {
+        getTasks();
+        Navigator.pop(context);
+      }
+
+
+  }
+
   }
 
 
