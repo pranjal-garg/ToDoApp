@@ -5,19 +5,24 @@ A simple and minimalistic **ToDo application** built using **Flutter**. This app
 ## 🚀 Features
 
 - ✅ Displays a list of tasks with due dates.
-- 📝 Allows adding new tasks with a title and due date.
+- 📝 Add new tasks with a title and due date.
 - ✔️ Mark tasks as "Completed" or "Incomplete" with visual changes.
 - 📅 Shows the current date dynamically.
 - 🗑️ Delete tasks with a single tap.
-- 🎨 Changes text color and adds a strikethrough when tasks are completed.
-- 📦 Modular code structure following Flutter best practices.
+- 🔄 Automatically sorts completed tasks to the bottom.
+- 🎨 Changes text color and adds a strikethrough for completed tasks.
+- 💾 Stores tasks locally using **SQLite**.
+- 📦 Follows clean and modular code structure.
 
 ## 📂 Project Structure
 
 ```plaintext
 /lib
-├── main.dart       # Main UI and app logic
-├── Task.dart       # Task model class
+├── main.dart                    # Main UI and app logic
+├── Task.dart                    # Task model class
+└── data/
+    └── local/
+        └── DBHelper.dart        # SQLite database helper
 ```
 
 
@@ -30,32 +35,35 @@ A simple and minimalistic **ToDo application** built using **Flutter**. This app
 
 ## 🛠️ Tech Stack
 
-- **Flutter** (UI toolkit)
-- **Dart** (Programming Language)
-- **intl** (for date formatting)
-- **Material Design** components
+- Flutter (UI toolkit)
+- Dart (Programming Language)
+- SQLite (Local database using sqflite)
+- intl (Date formatting)
+- Material Design (UI components)
+
 
 ## 💡 How it Works
 
-- The app initializes with an empty list of tasks.
+- The app initializes with data fetched from SQLite.
 - You can check/uncheck tasks. The UI updates instantly:
-  - ✔️ Completed tasks move to the bottom with a blue color and strikethrough.
-  - ❌ Incomplete tasks stay on top with black color and normal text.
-- Add a new task using the **"+" button** in the AppBar.
+- ✔️ Completed tasks move to the bottom with a blue color and strikethrough.
+- ❌ Incomplete tasks stay on top with black color and normal text.
+- Add a new task using the "+" button in the AppBar.
 - Delete any task with the trash icon.
+- All tasks are persisted locally using SQLite, so no data is lost on app restart.
 
 ## ⚠️ Known Limitations
 
-- Data is **not persistent**. Tasks are lost on app restart.
-- No backend or local storage is implemented.
+- No cloud sync or online backup.
+- Basic UI without animations.
 
 ## 🏗️ Future Improvements
 
-- Implement local database support (like **SQLite** or **Hive**).
-- Add task categories and deadlines.
-- Improve UI responsiveness and animations.
-- Add notifications for upcoming tasks.
-
+- Add notifications/reminders for due tasks.
+- Cloud sync with Firebase.
+- Dark mode support.
+- Task categorization and priorities.
+- Improved animations and transitions.
 ## 🏃 Getting Started
 
 ### Prerequisites:
