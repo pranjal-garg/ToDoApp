@@ -53,6 +53,7 @@ class DashBoardState extends State<DashBoardScreen>
   void getTasks() async
   {
     task = await DBRef!.getAllTasks();
+    sort();
     setState(() {});
   }
 
@@ -117,30 +118,25 @@ class DashBoardState extends State<DashBoardScreen>
     );
   }
 
-  void deleteTask(int i)
+  void deleteTask(int i) async
   {
-    task.removeAt(i);
-    setState(() {});
-  }
-  void update(bool? change, int i)
-  {
-    if(change == true)
+    bool? done = await DBRef?.deleteTask(task[i].taskID!);
+    if (done!)
     {
-      task[i].color = Colors.blue;
-      task[i].checked = true;
-      task[i].textDecoration = TextDecoration.lineThrough;
-      task.add(task[i]);
-      task.removeAt(i);
+      getTasks();
+      setState(() {});
     }
-    else
-    {
-      task[i].checked = false;
-      task[i].color = Colors.black;
-      task[i].textDecoration = TextDecoration.none;
-      task.insert(0, task[i]);
-      task.removeAt(i+1);
+  }
+  void update(bool? change, int i) async
+  {
+
+
+    bool? done = await DBRef?.updateTask(task[i].taskID!, change!);
+    if (done!)
+      {
+        getTasks();
+        setState(() {});
       }
-    setState(() {});
   }
   void newTask()
   {
@@ -200,6 +196,24 @@ class DashBoardState extends State<DashBoardScreen>
       }
 
 
+  }
+
+  void sort()
+  {
+    int length = task.length;
+    for (int i=0; i<length;i++)
+      {
+        if(task[i].checked!)
+          {
+            task.add(task[i]);
+            task.removeAt(i);
+          }
+        else
+          {
+            task.insert(0, task[i]);
+            task.removeAt(i+1);
+          }
+      }
   }
 
   }

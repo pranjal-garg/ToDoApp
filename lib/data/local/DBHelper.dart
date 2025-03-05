@@ -70,7 +70,21 @@ class DBHelper
     return tasks;
   }
 
+  Future<bool> updateTask(int taskNumber, bool b) async
+  {
+    var db = await getDB();
+    int rowsAffected = await db.update(tableName, {
+      column_checked: b
+    }, where:"$column_taskNumber = $taskNumber");
+    return rowsAffected>0;
+  }
 
+  Future<bool> deleteTask(int taskNumber) async
+  {
+    var db = await getDB();
+    int rowsAffected = await db.delete(tableName, where:"$column_taskNumber = $taskNumber");
+    return rowsAffected>0;
+  }
 
 
 }
