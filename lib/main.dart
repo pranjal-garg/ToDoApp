@@ -54,12 +54,22 @@ class DashBoardState extends State<DashBoardScreen>
   {
     task = await DBRef!.getAllTasks();
     sort();
+    Fluttertoast.showToast(
+      msg: "Debug 2",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+
     setState(() {});
   }
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
+  Widget build(BuildContext context)
+  {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -68,7 +78,7 @@ class DashBoardState extends State<DashBoardScreen>
           actions: [
             IconButton(
                 onPressed: (){ newTask();},
-                icon: Padding(padding: EdgeInsets.only(right: 10),child:Icon(Icons.add, color: Colors.white,size: 19,)))
+                icon: Padding(padding: EdgeInsets.only(right: 10),child:Icon(Icons.add, color: Colors.white,size: 24,)))
           ],
         ),
         body: Column(
@@ -76,7 +86,8 @@ class DashBoardState extends State<DashBoardScreen>
             Expanded(
                 child: Container(
                   width: double.infinity,
-                  decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.only(bottomRight: Radius.circular(150))),
+                  decoration: BoxDecoration(
+                      color: Colors.blue, borderRadius: BorderRadius.only(bottomRight: Radius.circular(150))),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,9 +107,9 @@ class DashBoardState extends State<DashBoardScreen>
             Expanded(
                 flex: 4,
                 child: Container(margin: EdgeInsets.only(top:15, left: 10, right: 10),
-                    child: ListView.builder(itemBuilder:(context, index) {
-                  return Card(elevation: 2,
-                              child: CheckboxListTile(
+                                  child: ListView.builder(itemBuilder:(context, index)
+                                    {
+                                      return Card(elevation: 2, child: CheckboxListTile(
                                   activeColor: Colors.blue,
                                   secondary: InkWell(onTap: (){deleteTask(index);}, child: Icon(Icons.delete_outline, color: Colors.blue,),),
                                   controlAffinity:ListTileControlAffinity.leading,
@@ -106,9 +117,8 @@ class DashBoardState extends State<DashBoardScreen>
                                   subtitle:Text("Due by: ${task[index].dueDate}"),
                                   value: task[index].checked,
                                   onChanged: (bool? v) => update(v, index)
-                              ),
-                  );
-                    },itemCount: task.length,)
+                              ));
+                                    },itemCount: task.length,)
                 )
 
             )
@@ -188,9 +198,20 @@ class DashBoardState extends State<DashBoardScreen>
 
   void addTaskToDb(String n, String dd, bool c) async
   {
+
     bool? done = await DBRef?.addTask(n, dd, c);
     if(done!)
       {
+        Fluttertoast.showToast(
+          msg: "Debug 1",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.black,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+
         getTasks();
         Navigator.pop(context);
       }
@@ -214,6 +235,14 @@ class DashBoardState extends State<DashBoardScreen>
             task.removeAt(i+1);
           }
       }
+    for (int i=0; i<length;i++)
+    {
+      if(task[i].color == Colors.red)
+      {
+        task.insert(0,task[i]);
+        task.removeAt(i+1);
+      }
+    }
   }
 
   }

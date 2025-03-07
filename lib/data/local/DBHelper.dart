@@ -55,16 +55,27 @@ class DBHelper
 
   Future<List<Task>> getAllTasks() async
   {
+    Fluttertoast.showToast(
+      msg: "Debug 3",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+
     var db = await getDB();
     List<Map<String, dynamic>> mData = await db.query(tableName);
     List<Task> tasks = [];
-
-    for (var row in mData) {
+    for (var row in mData)
+    {
       Task temp = Task();
       int b = row[column_checked];
       String name = row[column_name];
       String dd = row[column_dueDate];
-      temp.fetchFromDb(row[column_name], row[column_dueDate], row[column_checked], row[column_taskNumber]);
+
+      temp.newTask(row[column_name], row[column_dueDate], row[column_checked], row[column_taskNumber]);
       tasks.add(temp);
     }
     return tasks;

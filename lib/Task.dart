@@ -1,7 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 
 class Task
 {
@@ -12,17 +12,8 @@ class Task
   int? taskID;
   TextDecoration? textDecoration;
 
-  void newTask(String n, String dd, bool? c, Color? col, TextDecoration? decoration)
-  {
 
-    name = n;
-    dueDate = dd;
-    checked = c;
-    color = col;
-    textDecoration = decoration;
-  }
-
-  void fetchFromDb(String n, String dd, int c, int ID)
+  void newTask(String n, String dd, int c, int ID)
   {
     name = n;
     dueDate = dd;
@@ -35,9 +26,24 @@ class Task
       }
     else
       {
+        List<String> tokens = dueDate.split('/');
+        int date = int.parse(tokens[0]);
+        int month = int.parse(tokens[1]);
+        int year = int.parse(tokens[2]);
+        DateTime dateTime = DateTime(year, month, date);
+        DateTime instant = DateTime.now();
+        if(dateTime.isBefore(instant))
+          {
+            color = Colors.red;
+            textDecoration = TextDecoration.none;
+          }
+        else
+          {
+            color = Colors.black;
+            textDecoration = TextDecoration.none;
+          }
         checked = false;
-        color = Colors.black;
-        textDecoration = TextDecoration.none;
+
       }
 
 
