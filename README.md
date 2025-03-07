@@ -4,15 +4,17 @@ A simple and minimalistic **ToDo application** built using **Flutter**. This app
 
 ## 🚀 Features
 
-- ✅ Displays a list of tasks with due dates.
-- 📝 Add new tasks with a title and due date.
-- ✔️ Mark tasks as "Completed" or "Incomplete" with visual changes.
-- 📅 Shows the current date dynamically.
-- 🗑️ Delete tasks with a single tap.
-- 🔄 Automatically sorts completed tasks to the bottom.
-- 🎨 Changes text color and adds a strikethrough for completed tasks.
-- 💾 Stores tasks locally using **SQLite**.
-- 📦 Follows clean and modular code structure.
+- ✅ Persistent storage of tasks using **SQLite**.
+- 📝 Add new tasks with a **title** and **due date**.
+- ✔️ Mark tasks as **Completed** or **Incomplete** with automatic styling updates.
+- 📅 Automatically highlights **overdue tasks** in red.
+- 🗑️ Delete tasks easily.
+- 🎨 Dynamic styling:
+  - Completed tasks: **Blue text** with **strikethrough**.
+  - Overdue tasks: **Red text**.
+  - Incomplete tasks: **Black text**.
+- 📦 Modular code structure following best practices.
+
 
 ## 📂 Project Structure
 
